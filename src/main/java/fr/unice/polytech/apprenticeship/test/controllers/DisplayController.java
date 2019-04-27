@@ -31,7 +31,6 @@ public class DisplayController {
      */
     @RequestMapping(value = {"/user", "/user/{id}"}, method = RequestMethod.GET)
     public ResponseEntity getUserById(@PathVariable("id") Optional<ObjectId> id) {
-        logger.log(Level.INFO, "Input id : " + id);
         long begin = System.currentTimeMillis(), end;
         String result;
 

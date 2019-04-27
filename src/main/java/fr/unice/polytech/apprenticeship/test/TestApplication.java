@@ -14,6 +14,8 @@ public class TestApplication {
                 run(TestApplication.class,args);
         System.out.println("Contains A  "+context.
                 containsBeanDefinition("aspectChecker"));
+        System.out.println("Contains A  "+context.
+                containsBeanDefinition("displayAspect"));
     }
 
 }

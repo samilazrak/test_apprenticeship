@@ -4,11 +4,12 @@ import fr.unice.polytech.apprenticeship.test.exceptions.MissingMandatoryInformat
 import fr.unice.polytech.apprenticeship.test.exceptions.UserNotValidException;
 import fr.unice.polytech.apprenticeship.test.models.User;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Aspect
@@ -18,15 +19,14 @@ public class RegistrationChecker {
     private Logger logger = Logger.getLogger("Aspect");
 
     @Before(value = "execution(* fr.unice.polytech.apprenticeship.test.services.RegisterService.*(..)) && args(user)")
-    public void beforeAdvice(JoinPoint joinPoint, User user) throws UserNotValidException, MissingMandatoryInformationsException {
-        System.out.println("******************* Before method:");
-        //throw new UserNotValidException();
-    }
+    public void beforeRegistration(JoinPoint joinPoint, User user) throws UserNotValidException, MissingMandatoryInformationsException {
+        logger.log(Level.INFO, "Input user: " + user.toString());
 
-    @After(value = "execution(* fr.unice.polytech.apprenticeship.test.services.RegisterService.*(..)) && args(user)")
-    public void afterAdvice(JoinPoint joinPoint, User user) throws UserNotValidException, MissingMandatoryInformationsException {
-        System.out.println("******************* Before method:");
-        //throw new UserNotValidException();
-    }
+        if (user.getAge() == 0 || user.getCountry() == null || user.getName() == null ||
+                user.getCountry() == "" || user.getName() == "")
+            throw new MissingMandatoryInformationsException();
 
+        if (new Integer(user.getAge()) < 18 || !user.getCountry().toLowerCase().equals("france"))
+            throw new UserNotValidException();
+    }
 }

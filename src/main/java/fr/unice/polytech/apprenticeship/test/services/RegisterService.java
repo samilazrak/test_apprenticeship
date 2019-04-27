@@ -15,8 +15,6 @@ public class RegisterService {
     private UserRepository repository;
 
     public User createUser(User user) throws UserNotValidException, MissingMandatoryInformationsException {
-        if (user.getAge() == 0 || user.getCountry() == null || user.getName() == null)
-            throw new MissingMandatoryInformationsException();
 
         if (new Integer(user.getAge()) < 18 || !user.getCountry().toLowerCase().equals("france"))
             throw new UserNotValidException();

@@ -10,13 +10,10 @@ public class User {
     @Id
     public ObjectId _id;
 
-    @NotNull
     public String name;
 
-    @NotNull
     public int age;
 
-    @NotNull
     public String country;
 
     public String job;
@@ -53,7 +50,6 @@ public class User {
 
     @Override
     public String toString(){
-        return "ID: " + this._id + ", NAME : " + name + ", AGE : " + age + ", FROM :" + country
-                + job == null ? ", JOB :" + job + "\n" : "\n";
+        return "ID: " + this._id + ", NAME : " + name + ", AGE : " + age + ", FROM :" + country + ", JOB :" + job + "\n";
     }
 }
