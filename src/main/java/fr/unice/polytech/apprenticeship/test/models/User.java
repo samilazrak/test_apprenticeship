@@ -3,21 +3,32 @@ package fr.unice.polytech.apprenticeship.test.models;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotNull;
+import java.util.Optional;
+
 public class User {
     @Id
     public ObjectId _id;
 
+    @NotNull
     public String name;
+
+    @NotNull
     public int age;
+
+    @NotNull
     public String country;
+
+    public String job;
 
     public User() {}
 
-    public User(ObjectId _id, String name, int age, String country) {
+    public User(ObjectId _id, String name, int age, String country, String job) {
         this._id = _id;
         this.name = name;
         this.age = age;
         this.country = country;
+        this.job = job;
     }
 
     public String get_id() { return _id.toHexString(); }
@@ -32,8 +43,17 @@ public class User {
     public String getCountry() { return country; }
     public void setCountry(String country) { this.country = country; }
 
+    public Optional<String> getJob() {
+        return Optional.ofNullable(job);
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
     @Override
     public String toString(){
-        return "id: " + this._id + "  " + name + ", " + age + " years old   "  + country;
+        return "ID: " + this._id + ", NAME : " + name + ", AGE : " + age + ", FROM :" + country
+                + job == null ? ", JOB :" + job + "\n" : "\n";
     }
 }
