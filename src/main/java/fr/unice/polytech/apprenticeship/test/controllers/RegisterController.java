@@ -34,7 +34,7 @@ public class RegisterController {
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity createUser(@Valid @RequestBody User user) {
         logger.log(Level.INFO, "Input user: " + user.toString());
-        long begin = System.currentTimeMillis(), end;
+        long begin = System.currentTimeMillis();
 
         try {
             registerService.createUser(user);

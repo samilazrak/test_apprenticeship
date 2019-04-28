@@ -31,11 +31,16 @@ public class DisplayController {
      */
     @RequestMapping(value = {"/user", "/user/{id}"}, method = RequestMethod.GET)
     public ResponseEntity getUserById(@PathVariable("id") Optional<ObjectId> id) {
-        long begin = System.currentTimeMillis(), end;
+        long begin = System.currentTimeMillis();
         String result;
 
-        if (id.isPresent())
-            result = displayService.getUserById(id.get()).toString();
+        if (id.isPresent()) {
+            try {
+                result = displayService.getUserById(id.get()).toString();
+            }catch(Exception e){
+                return new ResponseEntity("This ID doesn't refer any user", HttpStatus.BAD_REQUEST);
+            }
+        }
         else
             result = displayService.getUsers().toString();
 

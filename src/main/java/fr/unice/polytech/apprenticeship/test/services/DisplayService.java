@@ -5,6 +5,7 @@ import fr.unice.polytech.apprenticeship.test.repositories.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class DisplayService {
     @Autowired
     private UserRepository repository;
 
-    public User getUserById(ObjectId id) {
+    public User getUserById(ObjectId id) throws MethodArgumentTypeMismatchException {
         return repository.findBy_id(id);
     }
 
